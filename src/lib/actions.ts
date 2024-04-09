@@ -55,7 +55,7 @@ export async function getUser(email: string) {
     },
     body: JSON.stringify({ email }),
   }
-  const response = await fetch('http://localhost:3333/user/find', options)
+  const response = await fetch('http://localhost:3333/user', options)
   const data = await response.json()
 
   return data
@@ -69,21 +69,18 @@ export async function getAllFood() {
       headers: {
         'Content-Type': 'application/json',
       },
-      // body: JSON.stringify({ userId }),
     }
-    const response = await fetch('http://localhost:3333/food', options)
+    const response = await fetch(
+      `http://localhost:3333/food/foods/${'20c567ce-b35f-4f8a-a1af-052f1f2cb178'}`,
+      options,
+    )
     const data = await response.json()
 
-    const userId = localStorage.getItem('userId')
-
-    if (!userId && data.userId) {
-      localStorage.setItem('userId', data.userId)
-    } else if (userId !== data.userId) {
-      localStorage.setItem('userId', data.userId)
-    }
+    console.log(data)
 
     return data
   } catch (erro) {
+    console.log(erro)
     return 'Error in fetching'
   }
 }
